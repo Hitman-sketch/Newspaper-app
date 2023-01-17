@@ -1,0 +1,37 @@
+{% extends "base.html"%}
+{%load crispy_forms_tags%}
+
+{%block content%}
+
+<div class="articles-entry">
+    <h2>{{article.title}}</h2>
+    <p>{{article.author}} | {{article.date}}</P>
+    <p>{{article.body}}</p>
+</div>
+
+<hr>
+<h4>Comments</h4>
+    {% for comment in article.comment_set.all %}
+    <p>{{comment.author}}&middot;{{comment}}</p>
+    {%endfor%}
+
+<p>
+
+<hr>
+<h4>Add a comment</h4>
+
+<form action="", method="post">{%csrf_token%}
+    {{form|crispy}}
+    <button class="btn btn-success ml-2" type="submit">Add</button>
+</form>
+
+
+    <a href="{%url 'article_edit' article.pk%}">Edit Paper </a> | 
+    <a href="{%url 'article_delete' article.pk%}">Delete paper </a>
+</p>
+<p> Back to <a href="{%url 'article_list' %}">All Articles</a>
+</p>
+
+
+
+{% endblock content %}
